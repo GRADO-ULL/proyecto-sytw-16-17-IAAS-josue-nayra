@@ -9,9 +9,9 @@ Este plugin provee al paquete **gitbook-start-josue-nayra** del mecanismo necesa
 
 ### Pasos a seguir
 
-Se construye la estructura inicial por **gitbook-start** la jerarquía de directorios conteniendo los scripts y ficheros markdown para el libro
+1- Se construye la estructura inicial por **gitbook-start** la jerarquía de directorios conteniendo los scripts y ficheros markdown para el libro
 
-
+2- Cuando el autor escribe y despliega el libro llamando a gulp. Las llamadas a gulp deploy-... ocurren en esta segunda fase. El despliegue hace un require de los plugins que implementan los despliegues solicitados.
 
 
 ### Enlaces
