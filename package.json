@@ -31,10 +31,18 @@
     "deploy",
     "iaas"
   ],
-  "author": ["Josue Toledo", "Nayra Rodríguez"],
+  "author": [
+    "Josue Toledo",
+    "Nayra Rodríguez"
+  ],
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/ULL-ESIT-SYTW-1617/gitbook-start-iaas-ull-es-josue-nayra/issues"
   },
-  "homepage": "https://github.com/ULL-ESIT-SYTW-1617/gitbook-start-iaas-ull-es-josue-nayra#readme"
+  "homepage": "https://github.com/ULL-ESIT-SYTW-1617/gitbook-start-iaas-ull-es-josue-nayra#readme",
+  "dependencies": {
+    "gulp": "^3.9.1",
+    "gulp-install": "^0.6.0",
+    "simple-git": "^1.54.0"
+  }
 }
