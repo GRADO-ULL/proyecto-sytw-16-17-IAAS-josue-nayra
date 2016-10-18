@@ -3,9 +3,6 @@
   "version": "1.0.3",
   "description": "Plugin that lets users to deploy a gitbook in iaas.ull.es",
   "main": "gitbook-start-iaas-ull-es-josue-nayra.js",
-  "bin":{
-    "gitbook-start-deploy-iaas": "./bin/gitbook-start-iaas-ull-es-josue-nayra.js"
-  },
   "scripts": {
     "start": "node ./bin/gitbook-start-iaas-ull-es-josue-nayra.js",
     "test": "echo \"Error: no test specified\" && exit 1"
