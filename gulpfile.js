@@ -1,6 +1,7 @@
 var gulp = require('gulp');
 var git = require('simple-git');
 var install = require('gulp-install');
+var shell = require('gulp-shell');
 
 //---------------------------------------------------------------------------
 // Tarea para subir al repositorio.
@@ -21,3 +22,11 @@ gulp.task('instalar_recursos', function(){
 });
 
 //---------------------------------------------------------------------------
+// Tarea para publicar el paquete
+
+gulp.task('deploy', ['push'], function(){
+    return gulp.src('')
+            .pipe(shell([
+                'npm publish'
+            ]))
+});
