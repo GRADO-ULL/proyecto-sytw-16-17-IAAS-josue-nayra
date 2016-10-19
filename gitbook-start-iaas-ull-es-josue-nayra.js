@@ -12,7 +12,7 @@ var respuesta = ((error, stdout, stderr) =>
     console.log("Stdout:"+stdout);
 });
 
-var deploy = ((ip_maquina,source,url) => 
+var deploy = ((ip_maquina,source,url,usuario,password) => 
 {
     console.log("Realizando deploy...");
     console.log("Ip_maquina:"+ip_maquina);
@@ -21,11 +21,15 @@ var deploy = ((ip_maquina,source,url) =>
     
     // exec(`ssh ${ip_maquina}; cd ${source}; git clone ${url} master`, respuesta);
     // exec(`ssh ${ip_maquina}; cd ${source}; git pull ${url} master`, respuesta);
-    exec('ls', {
-       user: 'usuario',
-       host: '10.6.128.176',
-       password: 'sytw1617'
-    }).pipe(process.stdout);
+    exec(`cd ${source}; git pull ${url} master`, {
+       user: `${usuario}`,
+       host: `${ip_maquina}`,
+       password: `${password}`
+    },function(err, stdout, stderr){
+        console.log("Error: "+err);
+        console.log("Salida: "+stdout);
+        console.log("Stderr: "+stderr);
+    });
 });
 
 exports.deploy = deploy;
