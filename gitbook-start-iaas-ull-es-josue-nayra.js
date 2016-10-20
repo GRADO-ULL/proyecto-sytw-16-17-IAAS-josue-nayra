@@ -26,31 +26,31 @@ var deploy = ((ip_maquina,source,url,usuario) =>
     }, respuesta);
 });
 
-var initialize = ((ip_maquina,usuario) => {
+// var initialize = ((ip_maquina,usuario) => {
     
-    //Creamos ficheros de clave pública
-    exec_shell(['cd ~/.ssh/; ssh-keygen'], function(err, out, code) {
-      if (err instanceof Error)
-        throw err;
-      process.stderr.write(err);
-      process.stdout.write(out);
-      process.exit(code);
-    }).then(()=>{
-            exec_shell([`scp ~/.ssh/id_rsa.pub ${usuario}@${ip_maquina}:~/.ssh/`], function(err, out, code) {
-            if (err instanceof Error)
-                throw err;
-            process.stderr.write(err);
-            process.stdout.write(out);
-            process.exit(code);
-            });
-    }).then(() => {
-        exec(`cd ~/.ssh/; cp id_rsa.pub authorized_keys`, {
-          user: usuario,
-          host: ip_maquina,
-          key: '~/.ssh/id_rsa.pub'
-        }, respuesta);    
-    });
-});
+//     //Creamos ficheros de clave pública
+//     exec_shell(['cd ~/.ssh/; ssh-keygen'], function(err, out, code) {
+//       if (err instanceof Error)
+//         throw err;
+//       process.stderr.write(err);
+//       process.stdout.write(out);
+//       process.exit(code);
+//     }).then(()=>{
+//             exec_shell([`scp ~/.ssh/id_rsa.pub ${usuario}@${ip_maquina}:~/.ssh/`], function(err, out, code) {
+//             if (err instanceof Error)
+//                 throw err;
+//             process.stderr.write(err);
+//             process.stdout.write(out);
+//             process.exit(code);
+//             });
+//     }).then(() => {
+//         exec(`cd ~/.ssh/; cp id_rsa.pub authorized_keys`, {
+//           user: usuario,
+//           host: ip_maquina,
+//           key: '~/.ssh/id_rsa.pub'
+//         }, respuesta);    
+//     });
+// });
 
 exports.deploy = deploy;
-exports.initialize = initialize;
+// exports.initialize = initialize;
