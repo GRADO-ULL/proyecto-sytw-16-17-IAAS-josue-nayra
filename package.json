@@ -41,9 +41,7 @@
     "gulp": "^3.9.1",
     "gulp-install": "^0.6.0",
     "gulp-shell": "^0.5.2",
-    "simple-git": "^1.54.0"
-  },
-  "devDependencies": {
-    "gitbook-start-josue-nayra": "^1.4.9"
+    "simple-git": "^1.54.0",
+    "ssh-exec": "^2.0.0"
   }
 }
