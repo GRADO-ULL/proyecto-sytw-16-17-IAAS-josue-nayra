@@ -5,6 +5,7 @@ const basePath = process.cwd();
 const fs = require('fs-extra');
 const path = require('path');
 var exec = require('child_process').exec;
+var scp = require('scp');
 
 // console.log("File gitbook-start-iaas-ull-es.js");
 
@@ -30,7 +31,7 @@ var deploy = ((ip_maquina,source,url,usuario) =>
     }, respuesta);
 });
 
-var initialize = ((ip_maquina,usuario,source, url) => {
+var initialize = ((ip_maquina,source, url, usuario) => {
 
     console.log("Método initialize del plugin deploy-iaas-ull-es");
     //
@@ -57,9 +58,23 @@ var initialize = ((ip_maquina,usuario,source, url) => {
 
     console.log("Creando fichero de clave pública...");
     exec("ssh-keygen -f iaas");
-    exec(`scp iaas.pub  ${usuario}@${ip_maquina}:~/.ssh/`);
-    exec('mv iaas.pub ~/.ssh/');
-    exec('mv iaas ~/.ssh/');
+    // exec("scp iaas.pub  usuario@"+ip_maquina+":~/.ssh/", respuesta);
+    var options = {
+      file: 'iaas.pub',
+      user: usuario,
+      host: ip_maquina,
+      port: '22',
+      path: '~/.ssh/'
+    }
+    scp.send(options, function (err) {
+      if (err) console.log(err);
+      else
+      {
+        console.log('Archivo iaas.pub se ha transferido a la máquina IAAS.');
+        exec('mv iaas.pub ~/.ssh/');
+        exec('mv iaas ~/.ssh');
+      }
+    });
 });
 
 exports.deploy = deploy;
