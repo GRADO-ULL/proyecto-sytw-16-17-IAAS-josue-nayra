@@ -1,10 +1,10 @@
 "use strict"
-const exec = require('ssh-exec');
+const sshexec = require('ssh-exec');
 // const exec_shell = require('exec');
 const basePath = process.cwd();
 const fs = require('fs-extra');
 const path = require('path');
-var exec_shell = require('child_process').exec;
+var exec = require('child_process').exec;
 
 // console.log("File gitbook-start-iaas-ull-es.js");
 
@@ -23,10 +23,10 @@ var deploy = ((ip_maquina,source,url,usuario) =>
     console.log("Source:"+source);
     console.log("Url:"+url);
 
-    exec(`cd ${source}; git pull ${url} master`, {
+    sshexec(`cd ${source}; git pull ${url} master`, {
       user: usuario,
       host: ip_maquina,
-      key: '~/.ssh/id_rsa.pub'
+      key: '~/.ssh/iaas.pub'
     }, respuesta);
 });
 
@@ -55,34 +55,11 @@ var initialize = ((ip_maquina,usuario,source, url) => {
         }
     });
 
-    // exec(`cd ~/.ssh/; cp iaas.pub authorized_keys`, {
-    //   user: usuario,
-    //   host: ip_maquina,
-    //   key: '~/.ssh/id_rsa.pub'
-    // }, respuesta);
-
-    //Creamos ficheros de clave pública
-    // exec_shell(['cd ~/.ssh/; ssh-keygen -f iaas'], function(err, out, code) {
-    //   if (err instanceof Error)
-    //     throw err;
-    //   process.stderr.write(err);
-    //   process.stdout.write(out);
-    //   process.exit(code);
-    // }).then(()=>{
-    //         exec_shell([`scp ~/.ssh/id_rsa.pub ${usuario}@${ip_maquina}:~/.ssh/`], function(err, out, code) {
-    //         if (err instanceof Error)
-    //             throw err;
-    //         process.stderr.write(err);
-    //         process.stdout.write(out);
-    //         process.exit(code);
-    //         });
-    // }).then(() => {
-    //     exec(`cd ~/.ssh/; cp id_rsa.pub authorized_keys`, {
-    //       user: usuario,
-    //       host: ip_maquina,
-    //       key: '~/.ssh/id_rsa.pub'
-    //     }, respuesta);
-    // });
+    console.log("Creando fichero de clave pública...");
+    exec("ssh-keygen -f iaas");
+    exec(`scp iaas.pub  ${usuario}@${ip_maquina}:~/.ssh/`);
+    exec('mv iaas.pub ~/.ssh/');
+    exec('mv iaas ~/.ssh/');
 });
 
 exports.deploy = deploy;
