@@ -34,9 +34,13 @@ var deploy = ((ip_maquina,source,url,usuario) =>
 var initialize = ((ip_maquina,source, url, usuario) => {
 
     console.log("Método initialize del plugin deploy-iaas-ull-es");
-    //
+    console.log("IP_MAQUINA:"+ip_maquina);
+    console.log("SOURCE:"+source);
+    console.log("URL:"+url);
+    console.log("USUARIO:"+usuario);
+    
     var tarea_gulp = `\n\ngulp.task("deploy-iaas-ull-es", ["deploy"], function(){`+
-             `\n       require("gitbook-start-iaas-ull-es-josue-nayra").deploy("${ip_maquina}", "${source}", "${url}");`+
+             `\n       require("gitbook-start-iaas-ull-es-josue-nayra").deploy("${ip_maquina}", "${source}", "${url}", "${usuario}");`+
              `\n});`;
 
     fs.readFile('gulpfile.js', "utf8", function(err, data) {

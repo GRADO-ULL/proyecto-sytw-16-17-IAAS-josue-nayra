@@ -1,10 +1,10 @@
 {
   "name": "gitbook-start-iaas-ull-es-josue-nayra",
-  "version": "1.1.6",
+  "version": "1.1.7",
   "description": "Plugin that lets users to deploy a gitbook in iaas.ull.es",
   "main": "gitbook-start-iaas-ull-es-josue-nayra.js",
   "scripts": {
-    "start": "node ./bin/gitbook-start-iaas-ull-es-josue-nayra.js",
+    "start": "node gitbook-start-iaas-ull-es-josue-nayra.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
