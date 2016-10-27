@@ -1,6 +1,6 @@
 {
   "name": "gitbook-start-iaas-ull-es-josue-nayra",
-  "version": "1.1.7",
+  "version": "1.1.8",
   "description": "Plugin that lets users to deploy a gitbook in iaas.ull.es",
   "main": "gitbook-start-iaas-ull-es-josue-nayra.js",
   "scripts": {
@@ -42,6 +42,7 @@
     "gulp-install": "^0.6.0",
     "gulp-shell": "^0.5.2",
     "minimist": "^1.2.0",
+    "scp": "0.0.3",
     "simple-git": "^1.54.0",
     "ssh-exec": "^2.0.0"
   }
