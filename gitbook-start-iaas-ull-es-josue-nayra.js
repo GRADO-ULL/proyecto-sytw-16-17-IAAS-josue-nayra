@@ -23,8 +23,12 @@ var deploy = ((ip_maquina,source,url,usuario) =>
     // console.log("Ip_maquina:"+ip_maquina);
     // console.log("Source:"+source);
     // console.log("Url:"+url);
+    
+    let c1 = url.split(".git");
+    let c2 = c1[0].split("/");
+    let final = source+c2[c2.length-1];
 
-    sshexec(`cd ${source}; git pull ${url} master`, {
+    sshexec(`cd ${final}; git pull ${url} master`, {
       user: usuario,
       host: ip_maquina,
       key: '~/.ssh/iaas.pub'

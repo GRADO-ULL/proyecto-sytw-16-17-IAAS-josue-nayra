@@ -2,16 +2,39 @@
 
 ## Plugin: gitbook-start-iaas-ull-es-josue-nayra
 
-El objetivo de esta práctica es extender el package NodeJS publicado en npm en una práctica anterior **gitbook-start-josue-nayra**, con una nueva funcionalidad que permita que los usuarios con conocimientos de NodeJS puedan extender la conducta del ejecutable para que este realice el despliegue en plataformas distintas de las ya consideradas.
 
 Este plugin provee al paquete **gitbook-start-josue-nayra** del mecanismo necesario para realizar el despliegue en los servidores de **iaas-ull-es** de la ULL.
 
 
 ### Pasos a seguir
 
-1- Se construye la estructura inicial por **gitbook-start** la jerarquía de directorios conteniendo los scripts y ficheros markdown para el libro
+1- Instalación del paquete **gitbook-start-josue-nayra**.
+```bash
+$ npm install -g gitbook-start-josue-nayra
+```
 
-2- Cuando el autor escribe y despliega el libro llamando a gulp. Las llamadas a gulp deploy-... ocurren en esta segunda fase. El despliegue hace un require de los plugins que implementan los despliegues solicitados.
+2- Construir la estructura inicial del libro con el paquete instalado, por tanto se creará la jerarquía de directorios conteniendo los scripts y ficheros markdown para el libro
+```bash
+$ gitbook-start -d <directorio> --autor <nombre_autor> --name <nombre_libro> --url <url_repo>
+```
+
+3- Colocarse en la carpeta creada para nuestro libro e instalar las dependencias. 
+```bash
+$ cd <directorio>
+$ npm install
+```
+
+3- Instalar el plugin **gitbook-start-iaas-ull-es-josue-nayra**.
+```bash
+$ npm install --save gitbook-start-iaas-ull-es-josue-nayra
+```
+
+4- Ejecutar el plugin:
+```
+$
+```
+
+
 
 
 ### Enlaces
@@ -20,9 +43,11 @@ Este plugin provee al paquete **gitbook-start-josue-nayra** del mecanismo necesa
 
 - [Descripción de la práctica](https://casianorodriguezleon.gitbooks.io/ull-esit-1617/content/practicas/practicaplugin.html)
 
-- [Publicación del paquete en npm](https://www.npmjs.com/package/gitbook-start-josue-nayra)
+- [Publicación del paquete en npm](https://www.npmjs.com/package/gitbook-start-iaas-ull-es-josue-nayra)
 
-- [Repositorio en Github.com](https://github.com/ULL-ESIT-SYTW-1617/nueva-funcionalidad-para-el-paquete-npm-plugins-josue-nayra)
+- [Repositorio plugin](https://github.com/ULL-ESIT-SYTW-1617/gitbook-start-iaas-ull-es-josue-nayra)
+
+- [Repositorio en Github.com del paquete gitbook-start](https://github.com/ULL-ESIT-SYTW-1617/nueva-funcionalidad-para-el-paquete-npm-plugins-josue-nayra)
 
 
 
