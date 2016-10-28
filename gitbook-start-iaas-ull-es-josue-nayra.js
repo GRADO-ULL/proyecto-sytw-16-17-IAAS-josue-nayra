@@ -20,9 +20,9 @@ var respuesta = ((error, stdout, stderr) =>
 var deploy = ((ip_maquina,source,url,usuario) =>
 {
     console.log("Realizando deploy...");
-    console.log("Ip_maquina:"+ip_maquina);
-    console.log("Source:"+source);
-    console.log("Url:"+url);
+    // console.log("Ip_maquina:"+ip_maquina);
+    // console.log("Source:"+source);
+    // console.log("Url:"+url);
 
     sshexec(`cd ${source}; git pull ${url} master`, {
       user: usuario,
@@ -34,10 +34,10 @@ var deploy = ((ip_maquina,source,url,usuario) =>
 var initialize = ((ip_maquina,source, url, usuario) => {
 
     console.log("Método initialize del plugin deploy-iaas-ull-es");
-    console.log("IP_MAQUINA:"+ip_maquina);
-    console.log("SOURCE:"+source);
-    console.log("URL:"+url);
-    console.log("USUARIO:"+usuario);
+    // console.log("IP_MAQUINA:"+ip_maquina);
+    // console.log("SOURCE:"+source);
+    // console.log("URL:"+url);
+    // console.log("USUARIO:"+usuario);
     
     var tarea_gulp = `\n\ngulp.task("deploy-iaas-ull-es", ["deploy"], function(){`+
              `\n       require("gitbook-start-iaas-ull-es-josue-nayra").deploy("${ip_maquina}", "${source}", "${url}", "${usuario}");`+
@@ -79,6 +79,14 @@ var initialize = ((ip_maquina,source, url, usuario) => {
         exec('mv iaas ~/.ssh');
       }
     });
+    
+    console.log("Clonando Gitbook en maquina IAAS");
+    
+    sshexec(`cd ${source}; git clone ${url}`, {
+      user: usuario,
+      host: ip_maquina,
+      key: '~/.ssh/iaas.pub'
+    }, respuesta);
 });
 
 exports.deploy = deploy;
