@@ -3,24 +3,37 @@ const path = require('path');
 const models = require(path.join(process.cwd(),'models','models.js'));
 
 var findByUsername = ((username_, password_, cb) => {
-    models.User.findAll({where: {
+    models.User.find({where: {
         username: username_
-    }}).then((datos) => {
+    }})
+    .then((datos) => {
         console.log(JSON.stringify(datos));
-        if(datos.length > 0) {
+        if(datos) {
             console.log("Array respuesta no vacio");
             console.log("password_:"+password_);
-            console.log("password en BD:"+datos[0].password);
-            console.log("Comparacion:"+bcrypt.compareSync(password_,datos[0].password));
-            if(bcrypt.compareSync(password_,datos[0].password))
+            console.log("password en BD:"+datos.password);
+            console.log("Comparacion:"+bcrypt.compareSync(password_,datos.password));
+            if(bcrypt.compareSync(password_,datos.password))
             {
-                console.log("Encontrado el usuario:"+JSON.stringify(datos[0]));
-                return cb(null, datos[0]);
+                console.log("Encontrado el usuario:"+JSON.stringify(datos));
+                return cb(null, datos);
             }
-            return cb(null,false);
-        }
-        return cb(null,false);
-    });
+            else
+            {
+              console.log("Los passwords no coinciden");
+              return cb("Password no coinciden",false);
+            }
+          }
+          else
+          {
+              console.log("La consulta no devuelve ningun usuario");
+              return cb("La consulta no devuelve ningun usuario",false);
+          }
+      })
+      .catch((error) =>
+      {
+        return cb(error,false);
+      });
 });
 
 var change_password = ((username_,password_actual,new_password, cb) =>
@@ -73,23 +86,23 @@ var change_password = ((username_,password_actual,new_password, cb) =>
     });
 });
 
-var existe_usuario = ((username_, password_, displayName_, cb) => 
+var existe_usuario = ((username_, password_, displayName_, cb) =>
 {
   models.User.find({where: {username: username_}})
-      .then((user) => 
+      .then((user) =>
       {
         if (user) {
             return cb(null, user);
         }
         else {
-          return cb(null, null);  
+          return cb(null, null);
         }
-        
+
       })
       .catch(function (err) {
           return cb(err, null);
       });
-  
+
 });
 
 var create_user = ((username_, password_, displayName_, cb) =>
@@ -102,7 +115,7 @@ var create_user = ((username_, password_, displayName_, cb) =>
       if(user){
         return cb("Ya existe el usuario");
       }
-      
+
       models.User.create(
       {
         username: username_,
@@ -128,7 +141,7 @@ var create_user = ((username_, password_, displayName_, cb) =>
           return cb(err);
         });
     });
-    
+
 });
 
 var borrar_cuenta = ((username_, password_, displayName_, cb) =>
