@@ -4,6 +4,9 @@ const sshexec = require('ssh-exec');
 const basePath = process.cwd();
 const fs = require('fs-extra');
 const path = require('path');
+const pkj = require(path.join(basePath,'package.json'));
+const inquirer = require('inquirer');
+const jsonfile = require('jsonfile');
 var exec = require('child_process').exec;
 var scp = require('scp');
 
