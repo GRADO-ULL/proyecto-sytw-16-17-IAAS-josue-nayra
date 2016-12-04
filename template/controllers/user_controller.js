@@ -27,7 +27,7 @@ var findByUsername = ((username_, password_, cb) => {
           else
           {
               console.log("La consulta no devuelve ningun usuario");
-              return cb("La consulta no devuelve ningun usuario",false);
+              return cb("No se ha encontrado el usuario",false);
           }
       })
       .catch((error) =>

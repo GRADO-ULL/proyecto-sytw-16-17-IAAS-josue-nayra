@@ -220,16 +220,12 @@ var initialize = (() => {
 
     obtener_variables().then((resolve,reject)=>
     {
-        console.log("Resolve:"+JSON.stringify(resolve));
         preparar_despliegue().then((resolve1,reject1) =>
         {
-          console.log("Preparar_despliegue() promise");
           escribir_gulpfile().then((resolve2,reject2)=>
           {
-              console.log("Escribir gulpfile promise");
               estructura_app.crear_app().then((resolve3,reject3)=>
               {
-                  console.log("Crear_app promise");
                   if(resolve3 && !reject3)
                     conexion_IAAS(resolve.usuarioremoto, resolve.IP, resolve.path, resolve.url);
               });
