@@ -59,7 +59,12 @@ var escribir_gulpfile = (() =>
       var tarea_gulp = `\n\ngulp.task("deploy-iaas-ull-es", ["deploy"], function(){`+
                 `\n       require("gitbook-start-iaas-ull-es-josue-nayra").deploy();`+
                 `\n});`;
-      
+                
+      // var tarea_gulp1 = `\n\nsshexec('cd ${pkj.IAAS.path}; npm install', {`+
+      //                   `\n  user: ${pkj.IAAS.usuarioremoto},`+
+      //                   `\n  host: ${pkj.IAAS.IP},`+
+      //                   `\n  key: '~/.ssh/iaas.pub'`+
+      //                   `\n  }, respuesta);\n`;
     
        fs.readFile('gulpfile.js', "utf8", function(err, data) {
            if (err) throw err;
