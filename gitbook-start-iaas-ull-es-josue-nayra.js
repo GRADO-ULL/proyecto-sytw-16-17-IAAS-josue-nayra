@@ -7,10 +7,13 @@ const path = require('path');
 const pkj = require(path.join(basePath,'package.json'));
 const inquirer = require('inquirer');
 const jsonfile = require('jsonfile');
+const estructura_app = require(path.join(__dirname,'lib','crear_app.js'));
+
 var exec = require('child_process').exec;
 var scp = require('scp');
 
-// console.log("File gitbook-start-iaas-ull-es.js");
+
+//-----------------------------------------------------------------------------------------------------------------
 
 var respuesta = ((error, stdout, stderr) =>
 {
@@ -19,6 +22,8 @@ var respuesta = ((error, stdout, stderr) =>
     console.log("Stderr:"+stderr);
     console.log("Stdout:"+stdout);
 });
+
+//-----------------------------------------------------------------------------------------------------------------
 
 var deploy = ((ip_maquina,source,url,usuario) =>
 {
@@ -37,6 +42,8 @@ var deploy = ((ip_maquina,source,url,usuario) =>
       key: '~/.ssh/iaas.pub'
     }, respuesta);
 });
+
+//-----------------------------------------------------------------------------------------------------------------
 
 var escribir_gulpfile = (() =>
 {
@@ -66,6 +73,9 @@ var escribir_gulpfile = (() =>
        });
    });
 });
+
+
+//-----------------------------------------------------------------------------------------------------------------
 
 var obtener_variables= (()=>
 {
@@ -129,6 +139,74 @@ var obtener_variables= (()=>
   });
 });
 
+//-----------------------------------------------------------------------------------------------------------------
+
+var preparar_despliegue = (() => {
+  return new Promise((resolve, reject) => {
+      if(fs.existsSync(path.join(basePath,'gh-pages','index.html')))
+      {
+        fs.rename(path.join(basePath,'gh-pages','index.html'), path.join(basePath,'gh-pages','introduccion.html'), (err) => {
+          if (err) {
+            console.log(err);
+            reject(err);
+          }
+          resolve(fs.existsSync(path.join(basePath,'gh-pages','introduccion.html')));
+        });
+      }
+      else
+      {
+          if(fs.existsSync(path.join(basePath,'gh-pages','introduccion.html')))
+          {
+            resolve(fs.existsSync(path.join(basePath,'gh-pages','introduccion.html')));
+          }
+          else
+          {
+            console.log("No existe gh-pages... Debe ejecutar gulp build para construir el libro");
+          }
+      }
+  });
+});
+
+//-----------------------------------------------------------------------------------------------------------------
+
+var conexion_IAAS = ((usuario, ip_maquina, path, url)=>
+{
+      console.log("Creando fichero de clave pública...");
+      exec("ssh-keygen -f iaas");
+      // exec("scp iaas.pub  usuario@"+ip_maquina+":~/.ssh/", respuesta);
+      var options = {
+        file: 'iaas.pub',
+        user: usuario,
+        host: ip_maquina,
+        port: '22',
+        path: '~/.ssh/'
+      };
+
+      scp.send(options, function (err) {
+        if (err)
+        {
+          console.log(err);
+          reject(err);
+        }
+        else
+        {
+          console.log('Archivo iaas.pub se ha transferido a la máquina IAAS.');
+          exec('mv iaas.pub ~/.ssh/');
+          exec('mv iaas ~/.ssh');
+        }
+      });
+
+      console.log("Clonando Gitbook en maquina IAAS");
+
+      sshexec(`cd ${path}; git clone ${url}`, {
+        user: usuario,
+        host: ip_maquina,
+        key: '~/.ssh/iaas.pub'
+      }, respuesta);
+});
+
+//-----------------------------------------------------------------------------------------------------------------
+
 var initialize = (() => {
 
     console.log("Método initialize del plugin deploy-iaas-ull-es");
@@ -139,33 +217,17 @@ var initialize = (() => {
     obtener_variables().then((resolve,reject)=>
     {
         console.log("Resolve:"+JSON.stringify(resolve));
-        escribir_gulpfile().then(()=>
+        preparar_despliegue().then((resolve1,reject1) =>
         {
-            console.log("Escribiendo en gulfile. Promise");
-            var options = {
-              file: 'iaas.pub',
-              user: usuario,
-              host: ip_maquina,
-              port: '22',
-              path: '~/.ssh/'
-            }
-            scp.send(options, function (err) {
-              if (err) console.log(err);
-              else
+          console.log("Preparar_despliegue() promise");
+          escribir_gulpfile().then(()=>
+          {
+              console.log("Escribir gulpfile promise");
+              estructura_app.crear_app().then((resolve3,reject3)=>
               {
-                console.log('Archivo iaas.pub se ha transferido a la máquina IAAS.');
-                exec('mv iaas.pub ~/.ssh/');
-                exec('mv iaas ~/.ssh');
-              }
-            });
-
-            console.log("Clonando Gitbook en maquina IAAS");
-
-            sshexec(`cd ${source}; git clone ${url}`, {
-              user: usuario,
-              host: ip_maquina,
-              key: '~/.ssh/iaas.pub'
-            }, respuesta);
+                  console.log("Crear_app promise");
+              });
+          });
         });
     });
 });
