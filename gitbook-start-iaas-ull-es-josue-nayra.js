@@ -98,7 +98,7 @@ var obtener_variables= (()=>
 
       if((pkj.IAAS.IP).match(/\S/g) && (pkj.IAAS.path).match(/\S/g) && (pkj.IAAS.usuarioremoto).match(/\S/g) && (pkj.IAAS.authentication).match(/\S/g))
       {
-        console.log("Campos rellenados correctamente");
+        console.log("Sección IAAS en package.json rellenada correctamente");
         resolve({"IP": pkj.IAAS.IP, "path": pkj.IAAS.path, "usuarioremoto":pkj.IAAS.usuarioremoto,"authentication": pkj.IAAS.authentication, "url": pkj.repository.url});
       }
       else

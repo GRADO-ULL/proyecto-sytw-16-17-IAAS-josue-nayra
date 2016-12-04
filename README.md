@@ -51,15 +51,27 @@ $ npm install --save gitbook-start-iaas-ull-es-josue-nayra
 
 *NOTA: En el caso de que el usuario ignore este paso, el plugin pedirá por teclado estos parámetro y, una vez introducidos, se añadirán al package.json*
 
+8.- Construimos el gitbook.
 
-8- Ejecutar el plugin:
+```bash
+$ gulp build
+```
+
+9.- Actualizamos repositorio en Github:
+
+```bash
+$ gulp push
+```
+
+
+10- Ejecutar el plugin:
    
 ```bash
 $ gitbook-start --deploy iaas-ull-es
 ```
 
 
-9- Una vez ejecutado el comando anterior, se generará automáticamente en el gulpfile.js una tarea llamada 
+11- Una vez ejecutado el comando anterior, se generará automáticamente en el gulpfile.js una tarea llamada 
 "deploy-iaas-ull-es" que permitirá al usuario actualizar el contenido de la máquina IAAS.
 
 ```javascript
