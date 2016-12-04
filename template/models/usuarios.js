@@ -1,6 +1,7 @@
 var Sequelize = require('sequelize');
 var bcrypt = require("bcrypt-nodejs");
 
+//Esquema de User
 module.exports = function(sequelize, DataTypes) {
     var User = sequelize.define(
         'User',

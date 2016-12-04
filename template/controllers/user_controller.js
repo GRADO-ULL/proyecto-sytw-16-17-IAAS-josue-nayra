@@ -43,9 +43,6 @@ var change_password = ((username_,password_actual,new_password, cb) =>
     {
       if(datos)
       {
-        console.log("Password actual query:"+password_actual);
-        console.log("Password en base de datos:"+datos.password);
-
         if(bcrypt.compareSync(password_actual, datos.password))
         {
           datos.updateAttributes({
@@ -53,28 +50,24 @@ var change_password = ((username_,password_actual,new_password, cb) =>
           })
           .then((respuesta)=>
           {
-            console.log("ACTUALIZADO PASSWORD:"+JSON.stringify(respuesta));
-            models.User.findAll({where: {
+            // console.log("ACTUALIZADO PASSWORD:"+JSON.stringify(respuesta));
+            models.User.find({where: {
                 username: username_
             }}).then((datos) => {
-                console.log("USUUUUUU:"+JSON.stringify(datos[0]));
                 return cb(null);
             })
             .catch((error)=>
             {
-                console.log("ea ea ea macarena");
                 return cb(null);
             });
           })
           .catch((err)=>
           {
-            console.log("ERROR ACTUALIZANDO PASSWORD:"+err);
             return cb(err);
           });
         }
         else
         {
-            console.log("Passwords no coinciden");
             return cb(true);
         }
       }
@@ -102,7 +95,6 @@ var existe_usuario = ((username_, password_, displayName_, cb) =>
       .catch(function (err) {
           return cb(err, null);
       });
-
 });
 
 var create_user = ((username_, password_, displayName_, cb) =>
@@ -141,7 +133,6 @@ var create_user = ((username_, password_, displayName_, cb) =>
           return cb(err);
         });
     });
-
 });
 
 var borrar_cuenta = ((username_, password_, displayName_, cb) =>

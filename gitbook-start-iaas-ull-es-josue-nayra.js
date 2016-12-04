@@ -25,16 +25,23 @@ var respuesta = ((error, stdout, stderr) =>
 
 //-----------------------------------------------------------------------------------------------------------------
 
-var deploy = ((ip_maquina,source,url,usuario) =>
+var deploy = (() =>
 {
     console.log("Realizando deploy...");
-    // console.log("Ip_maquina:"+ip_maquina);
-    // console.log("Source:"+source);
-    // console.log("Url:"+url);
+
+    var ip_maquina = pkj.IAAS.IP;
+    var path = pkj.IAAS.path;
+    var url = pkj.repository.url;
+    var usuario = pkj.IAAS.usuarioremoto;
+
+    console.log("Ip_maquina:"+ip_maquina);
+    console.log("Source:"+path);
+    console.log("Url:"+url);
+    console.log("Usuario:"+usuario);
 
     let c1 = url.split(".git");
     let c2 = c1[0].split("/");
-    let final = source+c2[c2.length-1];
+    let final = path+c2[c2.length-1];
 
     sshexec(`cd ${final}; git pull ${url} master`, {
       user: usuario,
@@ -226,6 +233,8 @@ var initialize = (() => {
               estructura_app.crear_app().then((resolve3,reject3)=>
               {
                   console.log("Crear_app promise");
+                  if(resolve3 && !reject3)
+                    conexion_IAAS(resolve.usuarioremoto, resolve.IP, resolve.path, resolve.url);
               });
           });
         });

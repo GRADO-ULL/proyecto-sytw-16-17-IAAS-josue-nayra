@@ -4,8 +4,7 @@ var LocalStrategy = require('passport-local').Strategy;
 
 var path = require('path');
 var basePath = process.cwd();
-// var config = require(path.join(basePath,'.secret.json'));
-// var datos_config = JSON.parse(JSON.stringify(config));
+
 var expressLayouts = require('express-ejs-layouts');
 var controlador_usuario = require('./controllers/user_controller.js');
 var error;
@@ -13,8 +12,6 @@ var error;
 passport.use(new LocalStrategy(
   function(username, password, cb) {
     console.log("Estrategia de local");
-    console.log("User:"+username);
-    console.log("Password:"+password);
 
     controlador_usuario.findByUsername(username,password,(err,usuario) => {
       if(err){
