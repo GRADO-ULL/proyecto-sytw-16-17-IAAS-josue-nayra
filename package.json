@@ -5,6 +5,7 @@
   "main": "gitbook-start-iaas-ull-es-josue-nayra.js",
   "scripts": {
     "start": "node gitbook-start-iaas-ull-es-josue-nayra.js",
+    "postinstall": "npm install -g gulp",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -42,18 +43,25 @@
     "gulp-shell": "^0.5.2"
   },
   "dependencies": {
+    "bcrypt-nodejs": "0.0.3",
+    "cookie-parser": "^1.4.3",
+    "ejs": "^2.5.3",
     "express": "^4.14.0",
     "express-ejs-layouts": "^2.2.0",
+    "express-session": "^1.14.2",
     "fs-extra": "^1.0.0",
     "gulp": "^3.9.1",
     "inquirer": "^1.2.3",
     "jsonfile": "^2.4.0",
     "minimist": "^1.2.0",
+    "morgan": "^1.7.0",
     "passport": "^0.3.2",
     "passport-local": "^1.0.0",
     "path": "^0.12.7",
     "scp": "0.0.3",
+    "sequelize": "^3.27.0",
     "simple-git": "^1.54.0",
+    "sqlite3": "^3.1.8",
     "ssh-exec": "^2.0.0"
   }
 }

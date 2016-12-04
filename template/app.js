@@ -16,7 +16,7 @@ passport.use(new LocalStrategy(
     controlador_usuario.findByUsername(username,password,(err,usuario) => {
       if(err){
         error = err;
-        return cb(null,false);
+        return cb(null,null);
       }
       console.log("User: "+JSON.stringify(usuario));
       return cb(null,usuario);
@@ -136,6 +136,14 @@ app.get('/borrar_cuenta', function(req, res)
       }
       res.redirect('/logout');
   });
+});
+
+app.get('/redirect_login', function(req,res)
+{
+  if(req.user != null)
+    res.render('login',{user: req.user});
+  else
+    res.render('home');
 });
 
 app.get('/logout',function(req,res){

@@ -218,16 +218,13 @@ var initialize = (() => {
 
     console.log("Método initialize del plugin deploy-iaas-ull-es");
 
-    console.log("Creando fichero de clave pública...");
-    exec("ssh-keygen -f iaas");
-
     obtener_variables().then((resolve,reject)=>
     {
         console.log("Resolve:"+JSON.stringify(resolve));
         preparar_despliegue().then((resolve1,reject1) =>
         {
           console.log("Preparar_despliegue() promise");
-          escribir_gulpfile().then(()=>
+          escribir_gulpfile().then((resolve2,reject2)=>
           {
               console.log("Escribir gulpfile promise");
               estructura_app.crear_app().then((resolve3,reject3)=>

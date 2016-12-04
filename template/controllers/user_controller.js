@@ -58,7 +58,7 @@ var change_password = ((username_,password_actual,new_password, cb) =>
             })
             .catch((error)=>
             {
-                return cb(null);
+                return cb(error);
             });
           })
           .catch((err)=>
@@ -68,7 +68,8 @@ var change_password = ((username_,password_actual,new_password, cb) =>
         }
         else
         {
-            return cb(true);
+          console.log("El password actual introducido por el usuario no es correcto");
+          return cb("El password actual introducido no es el correcto");
         }
       }
     })
