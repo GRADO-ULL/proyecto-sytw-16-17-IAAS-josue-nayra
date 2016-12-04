@@ -9,29 +9,26 @@ var findByUsername = ((username_, password_, cb) => {
     .then((datos) => {
         console.log(JSON.stringify(datos));
         if(datos) {
-            console.log("Array respuesta no vacio");
-            console.log("password_:"+password_);
-            console.log("password en BD:"+datos.password);
-            console.log("Comparacion:"+bcrypt.compareSync(password_,datos.password));
             if(bcrypt.compareSync(password_,datos.password))
             {
-                console.log("Encontrado el usuario:"+JSON.stringify(datos));
+                console.log("Password correcto");
                 return cb(null, datos);
             }
             else
             {
               console.log("Los passwords no coinciden");
-              return cb("Password no coinciden",false);
+              return cb("Password incorrecto",false);
             }
           }
           else
           {
               console.log("La consulta no devuelve ningun usuario");
-              return cb("No se ha encontrado el usuario",false);
+              return cb("Usuario no encontrado",false);
           }
       })
       .catch((error) =>
       {
+        console.log("Error al realizar la consulta");
         return cb(error,false);
       });
 });
@@ -71,6 +68,9 @@ var change_password = ((username_,password_actual,new_password, cb) =>
           console.log("El password actual introducido por el usuario no es correcto");
           return cb("El password actual introducido no es el correcto");
         }
+      }
+      else {
+        return cb(true);
       }
     })
     .catch((err) =>
