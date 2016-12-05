@@ -5,7 +5,7 @@
 
 Este plugin provee al paquete **gitbook-start-josue-nayra** del mecanismo necesario para realizar el despliegue en los servidores de **iaas-ull-es** de la ULL.
 
-[Paquete gitbook-start-josue-nayra](https://github.com/ULL-ESIT-SYTW-1617/practica-localstrategy-y-base-de-datos-iaas-ull-es-josue-nayra.git)
+[Paquete gitbook-start-josue-nayra](https://github.com/ULL-ESIT-SYTW-1617/crear-repositorio-en-github-josue-nayra.git)
 
 ### Pasos a seguir
 
@@ -17,7 +17,7 @@ $ npm install -g gitbook-start-josue-nayra
 
 2- Construir la estructura inicial del libro con el paquete instalado, por tanto se creará la jerarquía de directorios conteniendo los scripts y ficheros markdown para el libro
 ```bash
-$ gitbook-start -d <directorio> --autor <nombre_autor> --name <nombre_libro> --url <url_repo>
+$ gitbook-start -d <directorio> --autor <nombre_autor> --name <nombre_libro>
 ```
 
 
@@ -143,9 +143,11 @@ $ gulp deploy-<máquina en la se ha desplegado previamente>
 
 - [Publicación del paquete en npm](https://www.npmjs.com/package/gitbook-start-iaas-ull-es-josue-nayra)
 
-- [Repositorio plugin](https://github.com/ULL-ESIT-SYTW-1617/gitbook-start-iaas-ull-es-josue-nayra)
+- [Repositorio plugin de Heroku](https://github.com/ULL-ESIT-SYTW-1617/practica-localstrategy-y-base-de-datos-josue-nayra.git)
 
-- [Repositorio en Github.com del paquete gitbook-start](https://github.com/ULL-ESIT-SYTW-1617/nueva-funcionalidad-para-el-paquete-npm-plugins-josue-nayra)
+- [Publicación plugin de Heroku](https://www.npmjs.com/package/gitbook-start-heroku-P9-josue-nayra)
+
+- [Repositorio en Github.com del paquete gitbook-start](https://github.com/ULL-ESIT-SYTW-1617/crear-repositorio-en-github-josue-nayra.git)
 
 
 
