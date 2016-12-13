@@ -1,6 +1,6 @@
 {
   "name": "gitbook-start-iaas-ull-es-josue-nayra",
-  "version": "1.2.7",
+  "version": "1.2.8",
   "description": "Plugin that lets users to deploy a gitbook in iaas.ull.es",
   "main": "gitbook-start-iaas-ull-es-josue-nayra.js",
   "scripts": {
@@ -57,6 +57,7 @@
     "passport": "^0.3.2",
     "passport-local": "^1.0.0",
     "path": "^0.12.7",
+    "pem": "^1.9.4",
     "scp": "0.0.3",
     "sequelize": "^3.27.0",
     "simple-git": "^1.54.0",

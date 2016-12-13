@@ -110,22 +110,22 @@ var obtener_variables= (()=>
         [
             {
               name: "IP",
-              message: "Enter your IAAS IP:"
+              message: "Introduzca su IAAS IP:"
             },
             {
               name: "path",
-              message: "Enter your IAAS path:"
+              message: "Introduzca su IAAS path:"
             },
             {
               name: "usuarioremoto",
-              message: "Enter your IAAS user:"
+              message: "Introduzca su IAAS user:"
             },
             {
               name: "authentication",
-              message: "Do you want to authentication?",
+              message: "Quiere autenticacion?",
               type: 'list',
-              default: 'Yes',
-              choices: ['Yes', 'No']
+              default: 'Si',
+              choices: ['Si', 'No']
             }
         ];
 
