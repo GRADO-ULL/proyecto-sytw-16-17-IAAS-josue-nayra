@@ -46,7 +46,7 @@ var deploy = (() =>
 
     let c1 = url.split(".git");
     let c2 = c1[0].split("/");
-    let final = c2[c2.length-1];
+    let final = dir.concat('/').concat(c2[c2.length-1]);
 
     sshexec(`cd ${final}; git pull ${url} master`, {
       user: usuario,
@@ -180,6 +180,7 @@ var preparar_despliegue = (() => {
           else
           {
             console.log("No existe gh-pages... Debe ejecutar gulp build para construir el libro");
+            console.log("------------------------------------");
           }
       }
   });
