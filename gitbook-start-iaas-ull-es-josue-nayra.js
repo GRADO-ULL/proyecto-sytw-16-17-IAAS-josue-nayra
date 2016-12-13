@@ -35,7 +35,7 @@ var deploy = (() =>
     console.log("Realizando deploy...");
 
     var ip_maquina = pkj.IAAS.IP;
-    var path = pkj.IAAS.path;
+    var dir = pkj.IAAS.path;
     var url = pkj.repository.url;
     var usuario = pkj.IAAS.usuarioremoto;
 
@@ -46,12 +46,19 @@ var deploy = (() =>
 
     let c1 = url.split(".git");
     let c2 = c1[0].split("/");
-    let final = path+c2[c2.length-1];
+    let final = c2[c2.length-1];
 
-    sshexec(`cd ${final}; git pull ${url} master`, {
+    if(dir.search(final) == -1)
+    {
+      //No se ha incluido el nombre del repositorio en el path dado por el usuario
+      dir = `${dir}/${final}`;
+      console.log("Nuevo dir:"+dir);
+    }
+
+    sshexec(`cd ${dir}; git pull ${url} master`, {
       user: usuario,
       host: ip_maquina,
-      key: '~/.ssh/iaas.pub'
+      key: path.join(process.env.HOME,'.ssh','iaas')
     }, respuesta);
 });
 
