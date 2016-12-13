@@ -14,8 +14,8 @@ El servidor proveído por el plugin (heroku) deberá autenticar al lector del li
 Para la Base de datos se ha utilizado **Sequelize** y se ha realizado el **despliegue en Heroku**.
 
 A través de las modificaciones realizadas con anteriores prácticas las conexiones del cliente se procesarán ahora a través de https. Principales modificaciones:
- 
-- Nuevo fichero **lib/certificado.js** que permite generar un nuevo certificado haciendo uso del módulo npm pem. 
+
+- Nuevo fichero **lib/certificado.js** que permite generar un nuevo certificado haciendo uso del módulo npm pem.
 
 - Modificaciones en el fichero **app.js** haciendo uso del módulo npm https.
 
@@ -36,7 +36,7 @@ $ gitbook-start -d <directorio> --autor <nombre_autor> --name <nombre_libro>
 *La opción -d <directorio> creará automáticamente un nuevo repositorio en Github.*
 
 
-3- Colocarse en la carpeta creada para nuestro libro e instalar las dependencias. 
+3- Colocarse en la carpeta creada para nuestro libro e instalar las dependencias.
 
 ```bash
 $ cd <directorio>
@@ -44,9 +44,9 @@ $ npm install
 ```
 
 4- Instalar el plugin requerido como dependendecia con la opción --save, como por ejemplo: **gitbook-start-iaas-ull-es-josue-nayra** para el despliegue en iaas.
-    
+
 ```bash
-$ npm install --save gitbook-start-iaas-ull-es-josue-nayra 
+$ npm install --save gitbook-start-iaas-ull-es-josue-nayra
 ```
 
 5- Para la actualización de nuestro repositorio podemos ejecutar una de las tareas descritas en el gulpfile: **gulp push --mensaje <mensaje commit>**.
@@ -79,13 +79,13 @@ $ gulp push
 
 
 9- Ejecutar el plugin:
-   
+
 ```bash
 $ gitbook-start --deploy iaas-ull-es
 ```
 
 
-10- Una vez ejecutado el comando anterior, se generará automáticamente en el gulpfile.js una tarea llamada 
+10- Una vez ejecutado el comando anterior, se generará automáticamente en el gulpfile.js una tarea llamada
 "deploy-iaas-ull-es" que permitirá al usuario actualizar el contenido de la máquina IAAS.
 
 ```javascript
@@ -94,12 +94,12 @@ gulp.task("deploy-iaas-ull-es", function(){
 });
 ```
 
-*Cuando ejecutamos esta tarea, si no hemos creado la wiki en el repo previamente nos dará un error durante la ejecución de los scripts de Gitbook. 
+Cuando ejecutamos esta tarea, si no hemos creado la wiki en el repo previamente nos dará un error durante la ejecución de los scripts de Gitbook.
 Para evitar errores debemos:
 1.- Acceder al repositorio.
 2.- Acceder a la pestaña "Wiki".
 3.- Hacemos click en "Create first page".
-*
+
 
 **IMPORTANTE:**
 
@@ -112,7 +112,7 @@ El plugin se encargará de realizar las siguientes tareas en el initialize:
 
 El usuario deberá:
 
-* Tener su máquina IAAS encendida. 
+* Tener su máquina IAAS encendida.
 
 * El despliegue en el IAAS se realizará por defecto en el puerto 8080. En el caso que quiera cambiarse hay que acceder al fichero app.js y modificarlo.
 
@@ -121,6 +121,8 @@ El usuario deberá:
 ```bash
  ssh <usuarioremoto>@<ip_maquinaIAAS> 'cd <directorio del gitbook>; npm install';
 ```
+
+* Para comprobar que se ha realizado el despliegue correctamente debemos acceder en el navegador a nuestra app siguiendo el formado: **"https://<ip de máquina IAAS>:<PORT>"**
 
 
 ### Tareas Gulp
