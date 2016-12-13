@@ -1,16 +1,20 @@
-var express = require('express');
-var passport = require('passport');
-var LocalStrategy = require('passport-local').Strategy;
-
-var path = require('path');
-var basePath = process.cwd();
-
-var config = require(path.join(basePath,'package.json'));
-
-
-var expressLayouts = require('express-ejs-layouts');
-var controlador_usuario = require('./controllers/user_controller.js');
+const express = require('express');
+const passport = require('passport');
+const LocalStrategy = require('passport-local').Strategy;
+const path = require('path');
+const basePath = process.cwd();
+const config = require(path.join(basePath,'package.json'));
+const expressLayouts = require('express-ejs-layouts');
+const controlador_usuario = require('./controllers/user_controller.js');
+const fs = require('fs-extra');
 var error;
+
+//Autenticación segura
+var https = require('https');
+var options = {
+   key  : fs.readFileSync(path.join(basePath,'certs','server.key')),
+   cert : fs.readFileSync(path.join(basePath,'certs','server.crt'))
+};
 
 passport.use(new LocalStrategy(
   function(username, password, cb) {
@@ -156,6 +160,9 @@ app.get('/logout',function(req,res){
 });
 
 
-app.listen(process.env.PORT || 8080);
+// app.listen(process.env.PORT || 8080);
+https.createServer(options, app).listen(8080, function () {
+   console.log('Servidor running!');
+});
 
 module.exports = app;
