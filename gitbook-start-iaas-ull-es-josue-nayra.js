@@ -48,14 +48,7 @@ var deploy = (() =>
     let c2 = c1[0].split("/");
     let final = c2[c2.length-1];
 
-    if(dir.search(final) == -1)
-    {
-      //No se ha incluido el nombre del repositorio en el path dado por el usuario
-      dir = `${dir}/${final}`;
-      console.log("Nuevo dir:"+dir);
-    }
-
-    sshexec(`cd ${dir}; git pull ${url} master`, {
+    sshexec(`cd ${final}; git pull ${url} master`, {
       user: usuario,
       host: ip_maquina,
       key: path.join(process.env.HOME,'.ssh','iaas')
@@ -238,14 +231,18 @@ var initialize = (() => {
 
     cert.generar_certificado().then((resolve,reject) =>
     {
+      console.log("----------------------------");
       obtener_variables().then((resolve1,reject1)=>
       {
+          console.log("----------------------------");
           preparar_despliegue().then((resolve2,reject2) =>
           {
             escribir_gulpfile().then((resolve3,reject3)=>
             {
+                console.log("----------------------------");
                 estructura_app.crear_app().then((resolve4,reject4)=>
                 {
+                    console.log("----------------------------");
                     if(resolve4 && !reject4)
                       conexion_IAAS(resolve1.usuarioremoto, resolve1.IP, resolve1.path, resolve1.url);
                 });
