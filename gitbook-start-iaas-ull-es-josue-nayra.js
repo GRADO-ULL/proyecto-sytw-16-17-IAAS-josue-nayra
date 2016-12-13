@@ -19,10 +19,13 @@ var cert = require(path.join(__dirname,'lib','certificado.js'));
 
 var respuesta = ((error, stdout, stderr) =>
 {
+    console.log("Respuesta del servidor:");
     if (error)
         console.error("Error:"+error);
-    console.log("Stderr:"+stderr);
-    console.log("Stdout:"+stdout);
+    if(stderr)
+      console.log(stderr);
+    if(stdout)
+      console.log(stdout);
 });
 
 //-----------------------------------------------------------------------------------------------------------------

@@ -94,6 +94,12 @@ gulp.task("deploy-iaas-ull-es", function(){
 });
 ```
 
+*Cuando ejecutamos esta tarea, si no hemos creado la wiki en el repo previamente nos dará un error durante la ejecución de los scripts de Gitbook. 
+Para evitar errores debemos:
+1.- Acceder al repositorio.
+2.- Acceder a la pestaña "Wiki".
+3.- Hacemos click en "Create first page".
+*
 
 **IMPORTANTE:**
 
