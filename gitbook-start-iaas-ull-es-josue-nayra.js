@@ -12,6 +12,8 @@ const estructura_app = require(path.join(__dirname,'lib','crear_app.js'));
 var exec = require('child_process').exec;
 var scp = require('scp');
 
+var cert = require(path.join(__dirname,'lib','certificado.js'));
+
 
 //-----------------------------------------------------------------------------------------------------------------
 
@@ -59,13 +61,13 @@ var escribir_gulpfile = (() =>
       var tarea_gulp = `\n\ngulp.task("deploy-iaas-ull-es", ["deploy"], function(){`+
                 `\n       require("gitbook-start-iaas-ull-es-josue-nayra").deploy();`+
                 `\n});`;
-                
+
       // var tarea_gulp1 = `\n\nsshexec('cd ${pkj.IAAS.path}; npm install', {`+
       //                   `\n  user: ${pkj.IAAS.usuarioremoto},`+
       //                   `\n  host: ${pkj.IAAS.IP},`+
       //                   `\n  key: '~/.ssh/iaas.pub'`+
       //                   `\n  }, respuesta);\n`;
-    
+
        fs.readFile('gulpfile.js', "utf8", function(err, data) {
            if (err) throw err;
            // console.log(data);
@@ -224,19 +226,22 @@ var initialize = (() => {
 
     console.log("Método initialize del plugin deploy-iaas-ull-es");
 
-    obtener_variables().then((resolve,reject)=>
+    cert.generar_certificado().then((resolve,reject) =>
     {
-        preparar_despliegue().then((resolve1,reject1) =>
-        {
-          escribir_gulpfile().then((resolve2,reject2)=>
+      obtener_variables().then((resolve1,reject1)=>
+      {
+          preparar_despliegue().then((resolve2,reject2) =>
           {
-              estructura_app.crear_app().then((resolve3,reject3)=>
-              {
-                  if(resolve3 && !reject3)
-                    conexion_IAAS(resolve.usuarioremoto, resolve.IP, resolve.path, resolve.url);
-              });
+            escribir_gulpfile().then((resolve3,reject3)=>
+            {
+                estructura_app.crear_app().then((resolve4,reject4)=>
+                {
+                    if(resolve4 && !reject4)
+                      conexion_IAAS(resolve1.usuarioremoto, resolve1.IP, resolve1.path, resolve1.url);
+                });
+            });
           });
-        });
+      });
     });
 });
 
