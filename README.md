@@ -122,8 +122,11 @@ El usuario deberá:
  ssh <usuarioremoto>@<ip_maquinaIAAS> 'cd <directorio del gitbook>; npm install';
 ```
 
-* Para comprobar que se ha realizado el despliegue correctamente debemos acceder en el navegador a nuestra app siguiendo el formado: **"https://<ip de máquina IAAS>:<PORT>"**
+* Para comprobar que se ha realizado el despliegue correctamente debemos acceder en el navegador a nuestra app siguiendo el formato:
 
+```
+"https://<ip de máquina IAAS>:<PORT>"
+```
 
 ### Tareas Gulp
 
