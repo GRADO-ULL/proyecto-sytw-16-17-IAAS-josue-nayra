@@ -61,34 +61,40 @@ var escribir_gulpfile = (() =>
 {
    return new Promise((resolve,reject)=>
    {
-      var tarea_gulp = `\n\ngulp.task("deploy-iaas-ull-es", ["deploy"], function(){`+
-                `\n       require("gitbook-start-iaas-ull-es-josue-nayra").deploy();`+
-                `\n});`;
+     var tareas_gulp = require(path.join(__dirname,'lib','tareas_gulpfile.js'));
+    //  console.log("Tareas:"+JSON.stringify(tareas_gulp.tareas));
 
-      // var tarea_gulp1 = `\n\nsshexec('cd ${pkj.IAAS.path}; npm install', {`+
-      //                   `\n  user: ${pkj.IAAS.usuarioremoto},`+
-      //                   `\n  host: ${pkj.IAAS.IP},`+
-      //                   `\n  key: '~/.ssh/iaas.pub'`+
-      //                   `\n  }, respuesta);\n`;
+    //  console.log("Tareas length:"+tareas_gulp.tareas.length);
+     var tareas_introducidas = [];
 
-       fs.readFile('gulpfile.js', "utf8", function(err, data) {
-           if (err) throw err;
-           // console.log(data);
-           if(data.search("deploy-iaas-ull-es") != -1)
+     fs.readFile('gulpfile.js', "utf8", function(err, data) {
+         if (err) throw err;
+         // console.log(data);
+         var i=0;
+
+         while(tareas_introducidas.length <= tareas_gulp.tareas.length && i < tareas_gulp.tareas.length)
+         {
+           var tarea_actual = tareas_gulp.tareas[i];
+           if(data.search(tarea_actual.nombre) != -1)
            {
-             console.log("Ya existe una tarea de deploy-iaas-ull-es");
-             resolve(tarea_gulp);
+             console.log("Ya existe una tarea de "+tarea_actual.nombre);
+             i++;
            }
            else
            {
-             // console.log("No existe una tarea de deploy-iaas-ull-es");
-             fs.appendFile(path.join(basePath,'gulpfile.js'), `${tarea_gulp}`, (err) => {
-               if (err) throw err;
-                 console.log("Escribiendo tarea en gulpfile para próximos despliegues");
-                 resolve(tarea_gulp);
+             console.log("Escribiendo tarea "+tarea_actual.nombre + " en el gulpfile");
+             tareas_introducidas.push(tarea_actual);
+             fs.appendFile(path.join(basePath,'gulpfile.js'), `${tarea_actual.tarea}`, (err) => {
+               if (err){
+                  console.log("ERROR:"+err);
+                  reject(err);
+               }
              });
+             i++;
            }
-       });
+         }
+         resolve(tareas_introducidas);
+     });
    });
 });
 
