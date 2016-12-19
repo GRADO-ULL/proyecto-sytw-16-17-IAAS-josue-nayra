@@ -4,6 +4,9 @@ var install = require('gulp-install');
 var shell = require('gulp-shell');
 var myArgs = require('minimist')(process.argv.slice(2));
 
+var sshexec = require('ssh-exec');
+
+
 //---------------------------------------------------------------------------
 // Tarea para subir al repositorio.
 

@@ -14,6 +14,14 @@ var scp = require('scp');
 
 var cert = require(path.join(__dirname,'lib','certificado.js'));
 
+var ip_maquina = pkj.IAAS.IP;
+var dir = pkj.IAAS.path;
+var url = pkj.repository.url;
+var usuario = pkj.IAAS.usuarioremoto;
+
+let c1 = url.split(".git");
+let c2 = c1[0].split("/");
+let final = dir.concat('/').concat(c2[c2.length-1]);
 
 //-----------------------------------------------------------------------------------------------------------------
 
@@ -30,23 +38,51 @@ var respuesta = ((error, stdout, stderr) =>
 
 //-----------------------------------------------------------------------------------------------------------------
 
+var run_iaas_ull_es = (()=>
+{
+    console.log("Arrancando servidor en el IAAS...");
+
+    console.log(`Compruebe que puede acceder a su Gitbook: https://${ip_maquina}:8080`);
+    
+    sshexec(`cd ${final}; node app.js`, {
+      user: usuario,
+      host: ip_maquina,
+      key: path.join(process.env.HOME,'.ssh','iaas')
+    }, respuesta);
+});
+
+//-----------------------------------------------------------------------------------------------------------------
+
+var destroy_iaas_ull_es = (()=>
+{
+    console.log("Eliminando despliegue en el IAAS...");
+    
+    sshexec(`rm -r ${final};rm -r ~/.ssh/iaas.pub`, {
+      user: usuario,
+      host: ip_maquina,
+      key: path.join(process.env.HOME,'.ssh','iaas')
+    }, respuesta);
+});
+
+//-----------------------------------------------------------------------------------------------------------------
+
+var install_iaas_ull_es = (()=>
+{
+    console.log("Instalando dependencias...");
+    
+    sshexec(`cd ${final}; npm install`, {
+      user: usuario,
+      host: ip_maquina,
+      key: path.join(process.env.HOME,'.ssh','iaas')
+    }, respuesta);
+});
+
+
+//-----------------------------------------------------------------------------------------------------------------
+
 var deploy = (() =>
 {
     console.log("Realizando deploy...");
-
-    var ip_maquina = pkj.IAAS.IP;
-    var dir = pkj.IAAS.path;
-    var url = pkj.repository.url;
-    var usuario = pkj.IAAS.usuarioremoto;
-
-    console.log("Ip_maquina:"+ip_maquina);
-    console.log("Source:"+path);
-    console.log("Url:"+url);
-    console.log("Usuario:"+usuario);
-
-    let c1 = url.split(".git");
-    let c2 = c1[0].split("/");
-    let final = dir.concat('/').concat(c2[c2.length-1]);
 
     sshexec(`cd ${final}; git pull ${url} master`, {
       user: usuario,
@@ -211,7 +247,7 @@ var conexion_IAAS = ((usuario, ip_maquina, path, url)=>
         if (err)
         {
           console.log(err);
-          reject(err);
+          throw err;
         }
         else
         {
@@ -261,3 +297,6 @@ var initialize = (() => {
 
 exports.deploy = deploy;
 exports.initialize = initialize;
+exports.install_iaas_ull_es = install_iaas_ull_es;
+exports.destroy_iaas_ull_es = destroy_iaas_ull_es;
+exports.run_iaas_ull_es = run_iaas_ull_es;
