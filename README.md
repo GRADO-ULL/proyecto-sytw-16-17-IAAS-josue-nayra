@@ -1,4 +1,4 @@
-# Práctica 10. Sistemas y Tecnologías Web
+# Proyecto. Sistemas y Tecnologías Web
 
 ## Plugin: gitbook-start-iaas-ull-es-josue-nayra
 
