@@ -150,7 +150,7 @@ var obtener_variables= (()=>
       }
       else
       {
-        console.log("Campos vacios");
+        console.log("No se ha rellenado el package.json");
         var schema =
         [
             {
