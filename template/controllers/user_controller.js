@@ -185,9 +185,45 @@ var findAll = ((cb)=>
     });
 });
 
+var nueva_visita = ((username_,password_,cb)=>
+{
+  models.User.find({ where: { username: username_, password: password_ } })
+  .then((datos) =>
+  {
+    if(datos)
+    {
+        var num_visitas = datos.visitasGitbook + 1;
+        datos.updateAttributes({
+          visitasGitbook: num_visitas
+        })
+        .then((respuesta)=>
+        {
+          console.log("TODO OK");
+          return cb(null);
+        })
+        .catch((err)=>
+        {
+          console.log("TODO NO OK");
+          return cb(err);
+        });
+    }
+    else
+    {
+        console.log("El usuario no se ha encontrado.");
+        return cb("Usuario no disponible.");
+    }
+  })
+  .catch((err) =>
+  {
+      console.log("Error actualizando registro de visitas:"+err);
+      return cb(err);
+  });
+});
+
 exports.findByUsername = findByUsername;
 exports.change_password = change_password;
 exports.create_user = create_user;
 exports.borrar_cuenta = borrar_cuenta;
 exports.borrarById = borrarById;
 exports.findAll = findAll;
+exports.nueva_visita = nueva_visita;
