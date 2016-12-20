@@ -200,7 +200,7 @@ app.get('/registro_return', function(req, res)
       error = "No se ha creado el usuario: "+err;
       res.redirect('/error');
     }
-    res.render('home');
+    res.redirect('/redirect_register');
   });
 });
 
