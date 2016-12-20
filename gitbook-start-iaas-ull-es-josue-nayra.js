@@ -43,7 +43,7 @@ var run_iaas_ull_es = (()=>
     console.log("Arrancando servidor en el IAAS...");
 
     console.log(`Compruebe que puede acceder a su Gitbook: https://${ip_maquina}:8080`);
-    
+
     sshexec(`cd ${final}; node app.js`, {
       user: usuario,
       host: ip_maquina,
@@ -56,12 +56,12 @@ var run_iaas_ull_es = (()=>
 var destroy_iaas_ull_es = (()=>
 {
     console.log("Eliminando despliegue en el IAAS...");
-    
+
     sshexec(`rm -r ${final};rm -r ~/.ssh/iaas.pub`, {
       user: usuario,
       host: ip_maquina,
       key: path.join(process.env.HOME,'.ssh','iaas')
-    }, respuesta);
+    });
 });
 
 //-----------------------------------------------------------------------------------------------------------------
@@ -69,7 +69,7 @@ var destroy_iaas_ull_es = (()=>
 var install_iaas_ull_es = (()=>
 {
     console.log("Instalando dependencias...");
-    
+    console.log("Este proceso tarda varios minutos... No desespere");
     sshexec(`cd ${final}; npm install`, {
       user: usuario,
       host: ip_maquina,
