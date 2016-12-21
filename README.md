@@ -1,23 +1,33 @@
 # Proyecto. Sistemas y Tecnologías Web
+-------------
+## Nuevas funcionalidades en los paquetes IAAS y Heroku
+---------------------------------------
 
-## Plugin: gitbook-start-iaas-ull-es-josue-nayra
-
-
-Este plugin provee al paquete **gitbook-start-josue-nayra** del mecanismo necesario para realizar el despliegue en los servidores de **iaas-ull-es** de la ULL.
+#### Paquete para el despliegue en la máquina IAAS:
 
 [Paquete gitbook-start-josue-nayra](https://github.com/ULL-ESIT-SYTW-1617/crear-repositorio-en-github-josue-nayra.git)
 
-### Objetivo
+Se han añadido nuevas tareas gulp para facilitar las labores de configuración y administración al usuario propietario del Gitbook:
 
-El servidor proveído por el plugin (heroku) deberá autenticar al lector del libro usando LocalStrategy y una base de datos en la que se guarda la información acerca de los usuarios de manera segura.
+- **gulp deploy-iaas-ull-es**:
 
-Para la Base de datos se ha utilizado **Sequelize** y se ha realizado el **despliegue en Heroku**.
+Esta tarea permitirá actualizar el contenido del gitbook que se encuentra alojado en el IAAS, ejecutando un git pull sobre el repositorio en Github. Es importante tener en cuenta de que éste último debe estar siempre actualizado para que esta tarea se ejecute eficientemente.
 
-A través de las modificaciones realizadas con anteriores prácticas las conexiones del cliente se procesarán ahora a través de https. Principales modificaciones:
+- **gulp install-iaas-ull-es**:
 
-- Nuevo fichero **lib/certificado.js** que permite generar un nuevo certificado haciendo uso del módulo npm pem.
+Posteriormente al despliegue inicial del gitbook en el IAAS mediante la ejecución del comando *gitbook-start --deploy iaas-ull-es**, esta tarea nos permite instalar todas las dependencias y paquetes necesarios en la máquina remota para poder ejecutar y lanzar la aplicación sin problemas.
 
-- Modificaciones en el fichero **app.js** haciendo uso del módulo npm https.
+- **gulp run-iaas-ull-es**:
+
+En este caso, a partir de esta tarea podemos ejecutar el servidor en la máquina remota evitando la necesidad de acceder al IAAS y hacerlo manualmente, lo cual nos puede resultar bastante útil cuando el usuario realice testeos y pruebe la efectividad del despliegue.
+
+- **gulp destroy-iaas-ull-es**:
+
+En el caso de que el usuario decida eliminar el despliegue del IAAS, se ha facilitado esta tarea que realizará las siguientes cuestiones:
+
+    - Eliminará el contenido del directorio que contiene el gitbook en la máquina remota en el IAAS.
+
+    - Eliminará la clave que hemos transferido durante la etapa inicial del despliegue a la máquina remota.
 
 ### Pasos a seguir
 
@@ -94,13 +104,6 @@ gulp.task("deploy-iaas-ull-es", function(){
 });
 ```
 
-Cuando ejecutamos esta tarea, si no hemos creado la wiki en el repo previamente nos dará un error durante la ejecución de los scripts de Gitbook.
-Para evitar errores debemos:
-1.- Acceder al repositorio.
-2.- Acceder a la pestaña "Wiki".
-3.- Hacemos click en "Create first page".
-
-
 **IMPORTANTE:**
 
 El plugin se encargará de realizar las siguientes tareas en el initialize:
@@ -146,17 +149,15 @@ Tarea deploy genérica que actualiza las gh-pages del gitbook.
 $ gulp deploy
 ```
 
-* **deploy --iaas**
+* **deploy iaas-ull-es**
 
 Tarea generada posteriormente a la realización y ejecución del comando gitbook-start --deploy, que permite al usuario realizar posteriores despliegues y actualizaciones de su gitbook en la máquina remota con gulp.
 Por ejemplo, en el caso de que el usuario despliegue en el IAAS, después de haber desplegado con la opción gitbook-start --deploy iaas-ull-es, en el gulpfile se generará una tarea
 con el nombre deploy-iaas-ull-es.
 
 ```
-$ gulp deploy-<máquina en la se ha desplegado previamente>
+$ gulp deploy-iaas-ull-es
 ```
-
-
 
 ---------------------------------------------------------------------------------------------------------------
 
@@ -164,13 +165,13 @@ $ gulp deploy-<máquina en la se ha desplegado previamente>
 
 - [Campus virtual](https://campusvirtual.ull.es/1617/course/view.php?id=1175)
 
-- [Descripción de la práctica](https://crguezl.github.io/ull-esit-1617/practicas/practicassl.html)
+- [Descripción del proyecto](https://crguezl.github.io/ull-esit-1617/proyectos/sytw/)
 
 - [Publicación del paquete en npm](https://www.npmjs.com/package/gitbook-start-iaas-ull-es-josue-nayra)
 
-- [Repositorio plugin de Heroku](https://github.com/ULL-ESIT-SYTW-1617/https-al-servidor-del-libro-josue-nayra.git)
+- [Repositorio plugin de Heroku](https://github.com/ULL-ESIT-SYTW-1617/proyecto-sytw-16-17-josue-nayra.git)
 
-- [Publicación plugin de Heroku](https://www.npmjs.com/package/gitbook-start-heroku-P9-josue-nayra)
+- [Publicación plugin de Heroku](https://www.npmjs.com/package/gitbook-start-heroku-josue-nayra)
 
 - [Repositorio en Github.com del paquete gitbook-start](https://github.com/ULL-ESIT-SYTW-1617/crear-repositorio-en-github-josue-nayra.git)
 
@@ -187,7 +188,6 @@ $ gulp deploy-<máquina en la se ha desplegado previamente>
 - [Fyle System de Nodejs para el manejo de archivos](https://casianorodriguezleon.gitbooks.io/ull-esit-1617/content/apuntes/fs.html)
 
 - [Construyendo package.json](https://docs.npmjs.com/files/package.json)
-
 
 
 ### Integrantes

@@ -191,9 +191,8 @@ var obtener_variables= (()=>
 
                   jsonfile.spaces = 10;
                   jsonfile.writeFileSync(path.join(basePath,'package.json'),datos,{spaces: 10});
+                  resolve({"IP": respuestas.IP, "path": respuestas.path, "authentication": respuestas.authentication});
               });
-
-              resolve({"IP": respuestas.IP, "path": respuestas.path, "authentication": respuestas.authentication});
         });
       }
   });
