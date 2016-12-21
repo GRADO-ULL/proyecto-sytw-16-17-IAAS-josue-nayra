@@ -2,6 +2,70 @@
 -------------
 ## Nuevas funcionalidades en los paquetes IAAS y Heroku
 ---------------------------------------
+#### Paquete para el despliegue en Heroku:
+
+Modificaciones realizadas en el plugin para el despliegue en Heroku. [Repositorio](https://github.com/ULL-ESIT-SYTW-1617/proyecto-sytw-16-17-josue-nayra)
+
+- **Autenticación con: Google, Twitter, Facebook y Github.**
+
+Por defecto el usuario propietario del Gitbook tendrá habilitada la autenticación local, además de las expuestas anteriormente en función de lo que desee.
+
+La información relativa a la autenticación con Google, Twitter, Facebook y Github se dispondrá en un archivo "auth.json", en cual el usuario rellenará los datos relativos a la autenticación (clientID y clientSecret).
+
+En función de los tipos de autenticación que elija el autor del libro aparecerán en el login nuevos botones para hacer la autenticación con cada uno de ellos.
+
+
+- **Vista administrador para la gestión de los usuarios que visitan el libro por parte del autor del mismo.**
+
+El administrador podrá crear nuevos usuarios desde esta vista, asignando un 'usuario', un 'password' y un 'displayName', como también borrar usuarios de los existentes en la base de datos a partir del 'id'.
+
+En esta vista se facilitará una tabla al administrador con todos los usuarios existentes en la base de datos local.
+Para cada uno de ellos se podrá visualizar su 'id', 'usuario', 'nombre completo' y las visitas que ha realizado al Gitbook.
+
+Los cambios que se produzcan en esta sección de la aplicación se visualizarán en la tabla de usuarios.
+
+
+- **Opción para elegir el tipo de base de datos: Sequelize o Dropbox**.
+
+Se ha reestructurado el código para dar la opción al autor del libro de elegir la base de datos que desee, tanto Sequelize como Dropbox.
+
+En función de la elección del usuario con su base de datos se generará un controlador para los usuarios diferente en función de si la base de datos es Sequelize o Dropbox.
+
+Para el caso de **Dropbox** el usuario deberá disponer de un fichero como base de datos a su cuenta personal de Dropbox en formato JSON, siguiendo la siguiente estructura:
+
+```json
+{
+  "users":[
+    {
+      "id": 1,
+      "username": "admin",
+      "password": "****",
+      "displayName": "Administrador",
+      "visitasGitbook": 0
+    }
+  ]
+}
+```
+
+El plugin exigirá al usuario propietario del Gitbook la introducción de un token para utilizar la API de Dropbox y el link del archivo de base de datos que se deberá encontrar en su perfil.
+Para generar un token para el Dropbox puede acceder al siguiente enlace: [Token Dropbox](https://dropbox.github.io/dropbox-api-v2-explorer/).
+Estos datos se almacenarán en un directorio oculto: *~/.dropbox*, en un fichero "dropbox.json".
+
+
+Para el caso de **Sequelize** el usuario no tendrá que configurar nada. El dialecto utilizado por parte de este ORM es Sqlite3.
+
+
+- **Nueva tarea Gulp para administrar el servidor: "destroy" elimina la aplicación y el repositorio remoto de Heroku.**
+
+Esta tarea se invoca ejecutando:
+
+```bash
+$ gulp destroy heroku
+```
+
+Utilizará la API de Heroku para borrar la aplicación.
+
+-------------------------------------
 
 #### Paquete para el despliegue en la máquina IAAS:
 

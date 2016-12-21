@@ -150,50 +150,9 @@ var obtener_variables= (()=>
       }
       else
       {
-        console.log("No se ha rellenado el package.json");
-        var schema =
-        [
-            {
-              name: "IP",
-              message: "Introduzca su IAAS IP:"
-            },
-            {
-              name: "path",
-              message: "Introduzca su IAAS path:"
-            },
-            {
-              name: "usuarioremoto",
-              message: "Introduzca su IAAS user:"
-            },
-            {
-              name: "authentication",
-              message: "Quiere autenticacion?",
-              type: 'list',
-              default: 'Si',
-              choices: ['Si', 'No']
-            }
-        ];
-
-        inquirer.prompt(schema).then((respuestas) =>
-        {
-              //Escribimos en el package.json los valores adecuadamente
-              fs.readFile(path.join(basePath,'package.json'),(err,data) =>
-              {
-                  if(err)
-                    throw err;
-
-                  var datos = JSON.parse(data);
-
-                  datos.IAAS.IP = respuestas.IP;
-                  datos.IAAS.path = respuestas.path;
-                  datos.IAAS.usuarioremoto = respuestas.usuarioremoto;
-                  datos.IAAS.authentication = respuestas.authentication;
-
-                  jsonfile.spaces = 10;
-                  jsonfile.writeFileSync(path.join(basePath,'package.json'),datos,{spaces: 10});
-                  resolve({"IP": respuestas.IP, "path": respuestas.path, "authentication": respuestas.authentication});
-              });
-        });
+        console.log("No se ha rellenado la sección IAAS del package.json");
+        console.log("Rellene los campos correspondientes y pruebe de nuevo");
+        reject("Seccion IAAS del package.json incompleta");
       }
   });
 });
